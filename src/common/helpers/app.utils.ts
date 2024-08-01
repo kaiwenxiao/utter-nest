@@ -1,4 +1,4 @@
-import { INestApplication } from '@nestjs/common';
+import { INestApplication, ValidationPipeOptions } from '@nestjs/common';
 import { ConfigService } from '@nestjs/config';
 import { Configs } from '../typings/globals';
 import { DocumentBuilder, SwaggerModule } from '@nestjs/swagger';
@@ -12,8 +12,22 @@ import { isArray } from './validator.utils';
 import { IS_PUBLIC_KEY_META } from '../constant/metadata.constants';
 import { getMiddleware } from 'swagger-stats';
 import { swaggerOptions } from '../swagger/swagger.plugin';
+import { HelperService } from './helpers.utils';
+import { i18nValidationErrorFactory } from 'nestjs-i18n';
 
 export const AppUtils = {
+  // pipe normally with two types, one for validation, one for transform,
+  // use two package, so for validation pipe, need install `class-transformer`
+  validationPipeOptions(): ValidationPipeOptions {
+    return {
+      whitelist: true,
+      transform: true,
+      forbidUnknownValues: false,
+      validateCustomDecorators: true,
+      enableDebugMessages: HelperService.isDev(),
+      exceptionFactory: i18nValidationErrorFactory,
+    };
+  },
   setupSwagger(
     app: INestApplication,
     configService: ConfigService<Configs, true>,
