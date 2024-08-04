@@ -6,16 +6,36 @@ import {
 } from '@nestjs/platform-express';
 import { Logger, ValidationPipe } from '@nestjs/common';
 import { ConfigService } from '@nestjs/config';
-import { Configs } from './common/typings/globals';
-import { HelperService } from './common/helpers/helpers.utils';
-import { AppUtils } from './common/helpers/app.utils';
+import { Configs } from '@common/typings/globals';
+import { HelperService } from '@common/helpers/helpers.utils';
+import { AppUtils } from '@common/helpers/app.utils';
 import helmet from 'helmet';
 import { I18nValidationExceptionFilter } from 'nestjs-i18n';
 import { LoggerErrorInterceptor } from 'nestjs-pino';
+import { SocketIOAdapter } from './socket-io.adapter';
+import { useContainer } from 'class-validator';
+const chalk = require('chalk');
 // eslint-disable-next-line @typescript-eslint/no-var-requires
 const bodyParser = require('body-parser');
 // eslint-disable-next-line @typescript-eslint/no-var-requires
 const compression = require('compression');
+
+// first
+// type moduleType = {
+//   hot?: {
+//     accept?: () => void;
+//     dispose?: (argument: () => Promise<void>) => void;
+//   };
+// }
+//
+// let module: moduleType
+// second
+declare const module: {
+  hot: {
+    accept: () => void;
+    dispose: (argument: () => Promise<void>) => void;
+  };
+};
 
 const logger = new Logger('Bootstrap');
 
@@ -50,7 +70,7 @@ async function bootstrap() {
   }
 
   // 3. global pipes, filters and interceptors
-  const globalPrefix = configService.get('app.prefix', { infer: true });
+  const globalPrefix = configService.get('app.prefix', { infer: true })!;
   app.setGlobalPrefix(globalPrefix);
 
   app.useGlobalPipes(new ValidationPipe(AppUtils.validationPipeOptions()));
@@ -60,6 +80,45 @@ async function bootstrap() {
   );
 
   app.useGlobalInterceptors(new LoggerErrorInterceptor());
+
+  // 4. socket
+  const redisIoAdapter = new SocketIOAdapter(app, configService);
+
+  await redisIoAdapter.connectToRedis();
+  app.useWebSocketAdapter(redisIoAdapter);
+
+  // ---
+  app.enableShutdownHooks();
+
+  AppUtils.killAppWithGrace(app);
+
+  useContainer(app.select(AppModule), { fallbackOnErrors: true });
+
+  if (module.hot) {
+    module.hot.accept();
+    module.hot.dispose(() => app.close());
+  }
+
+  const port =
+    process.env.PORT ?? configService.get('app.port', { infer: true })!;
+
+  await app.listen(port);
+
+  const appUrl = `http://localhost:${port}/${globalPrefix}`;
+
+  logger.log('====================');
+  logger.log(`🚀 Application is running on: ${chalk.green(appUrl)}`);
+
+  logger.log('====================');
+  logger.log(
+    `🚦Accepting request only from ${chalk.green(`${configService.get('app.allowedOrigins', { infer: true }).toString()}`)}`,
+  );
+
+  if (!HelperService.isProd()) {
+    const swaggerUrl = `http://localhost:${port}/doc`;
+    logger.log('====================');
+    logger.log(`📑 Swagger is running on: ${chalk.green(swaggerUrl)}`);
+  }
 }
 
 try {

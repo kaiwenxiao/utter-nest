@@ -1,21 +1,76 @@
 {
   "compilerOptions": {
-    "module": "commonjs",
-    "declaration": true,
-    "removeComments": true,
+    /* Base Options: */
+
+    "esModuleInterop": true,
+    "skipLibCheck": true,
+    "target": "ES2022", // Node.js 18
+    "allowJs": true,
+    "moduleDetection": "force",
+    "allowSyntheticDefaultImports": true, // To provide backwards compatibility, Node.js allows you to import most CommonJS packages with a default import. This flag tells TypeScript that it's okay to use import on CommonJS modules.
+    "resolveJsonModule": false, // ESM doesn't yet support JSON modules.
+
+    /* ModuleResolution: */
+
+    "module": "CommonJS",
+    "moduleResolution": "node",
+
+    /* Output: */
+    "sourceMap": true,
+    "jsx": "react",
+    "useDefineForClassFields": true,
+    "forceConsistentCasingInFileNames": true,
     "emitDecoratorMetadata": true,
     "experimentalDecorators": true,
-    "allowSyntheticDefaultImports": true,
-    "target": "ES2021",
-    "sourceMap": true,
-    "outDir": "./dist",
-    "baseUrl": "./",
     "incremental": true,
-    "skipLibCheck": true,
-    "strictNullChecks": false,
-    "noImplicitAny": false,
-    "strictBindCallApply": false,
-    "forceConsistentCasingInFileNames": false,
-    "noFallthroughCasesInSwitch": false
-  }
+
+    /* Prettify */
+    "pretty": true,
+    "newLine": "lf",
+    "removeComments": true,
+    "stripInternal": true,
+
+
+
+    /* Strictness */
+    "strict": true,
+    "allowUnreachableCode": false,
+    "allowUnusedLabels": false,
+    "exactOptionalPropertyTypes": false,
+    "noUnusedLocals": true,
+    "noUnusedParameters": true,
+    "noFallthroughCasesInSwitch": true,
+    "noImplicitReturns": true,
+    "noUncheckedIndexedAccess": true,
+    "noEmitOnError": true,
+    "baseUrl": "src",
+    "paths": {
+      "@lib/*": [
+        "./lib/*"
+      ],
+      "@common/*": [
+        "./common/*"
+      ],
+      "@modules/*": [
+        "./modules/*"
+      ],
+      "@entities": [
+        "./entities"
+      ],
+      "@mocks": [
+        "./_mocks_"
+      ],
+      "@generated": [
+        "./generated"
+      ]
+    },
+    "declaration": true,
+    "outDir": "dist"
+  },
+  "include": [
+    "test/**/*",
+    "src/**/*",
+    "eslint.config.js"
+  ],
+  "typeRoots": ["./src/common/@types/typings"]
 }
