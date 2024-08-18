@@ -43,3 +43,15 @@ export function getPackageJson(directory?: string) {
   const packageJson = require(packageJsonPath) as IPackageJson;
   return packageJson;
 }
+
+export function enumToString<T extends Record<string, string>>(
+  _enum: T,
+): string {
+  return Object.keys(_enum)
+    .map((key) => _enum[key])
+    .join(',');
+}
+
+export function formatSearch(search: string) {
+  return `%${search.trim().replaceAll('\n', ' ').replaceAll(/\s\s+/g, ' ').toLowerCase()}%`;
+}

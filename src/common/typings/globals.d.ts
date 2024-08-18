@@ -1,4 +1,4 @@
-import type { Config as ConfigInterface } from '../../lib/config/configs/config.interace';
+import type { Config as ConfigInterface } from '@lib/config/config.interace';
 
 // `export {}` indicate file as a module and export nothing, often used in TypeScript file only
 // contain type declarations or interfaces, without any code or exports
