@@ -8,7 +8,7 @@ import { Migrator } from '@mikro-orm/migrations';
 import { SeedManager } from '@mikro-orm/seeder';
 import { baseOptions } from './orm.config';
 
-// TODO: can I use `configService` to get all env configs related to database?
+// cli is not recommended in nestjs, try `MikroOrmModule` instead
 
 /**
  *

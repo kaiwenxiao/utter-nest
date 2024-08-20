@@ -22,9 +22,9 @@ import { Configs } from '@common/typings/globals';
           // password: configService.get('database.password', { infer: true }),
         }),
     }),
-    MikroOrmModule.forFeature({
-      entities: baseOptions.entities,
-    }),
+    // MikroOrmModule.forFeature({
+    //   entities: baseOptions.entities,
+    // }),
   ],
   exports: [MikroOrmModule],
 })
