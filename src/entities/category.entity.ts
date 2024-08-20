@@ -1,9 +1,13 @@
-import { Entity, Property } from '@mikro-orm/postgresql';
-import { BaseEntity } from '@common/database/base.entity';
+import {
+  BaseEntity,
+  Entity,
+  PrimaryKey,
+  Property,
+} from '@mikro-orm/postgresql';
 
 @Entity()
 export class Category extends BaseEntity {
-  @Property({ index: true })
+  @PrimaryKey({ index: true })
   name!: string;
 
   @Property()

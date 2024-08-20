@@ -5,36 +5,42 @@
 [circleci-image]: https://img.shields.io/circleci/build/github/nestjs/nest/master?token=abc123def456
 [circleci-url]: https://circleci.com/gh/nestjs/nest
 
-  <p align="center">A progressive <a href="http://nodejs.org" target="_blank">Node.js</a> framework for building efficient and scalable server-side applications.</p>
+  <p align="center">Nestjs + Mikro-orm + PostgreSQL based backend powerful and reliable project template (UNDER CONSTRUCTION)</p>
     <p align="center">
-<a href="https://www.npmjs.com/~nestjscore" target="_blank"><img src="https://img.shields.io/npm/v/@nestjs/core.svg" alt="NPM Version" /></a>
-<a href="https://www.npmjs.com/~nestjscore" target="_blank"><img src="https://img.shields.io/npm/l/@nestjs/core.svg" alt="Package License" /></a>
-<a href="https://www.npmjs.com/~nestjscore" target="_blank"><img src="https://img.shields.io/npm/dm/@nestjs/common.svg" alt="NPM Downloads" /></a>
-<a href="https://circleci.com/gh/nestjs/nest" target="_blank"><img src="https://img.shields.io/circleci/build/github/nestjs/nest/master" alt="CircleCI" /></a>
-<a href="https://coveralls.io/github/nestjs/nest?branch=master" target="_blank"><img src="https://coveralls.io/repos/github/nestjs/nest/badge.svg?branch=master#9" alt="Coverage" /></a>
-<a href="https://discord.gg/G7Qnnhy" target="_blank"><img src="https://img.shields.io/badge/discord-online-brightgreen.svg" alt="Discord"/></a>
-<a href="https://opencollective.com/nest#backer" target="_blank"><img src="https://opencollective.com/nest/backers/badge.svg" alt="Backers on Open Collective" /></a>
-<a href="https://opencollective.com/nest#sponsor" target="_blank"><img src="https://opencollective.com/nest/sponsors/badge.svg" alt="Sponsors on Open Collective" /></a>
-  <a href="https://paypal.me/kamilmysliwiec" target="_blank"><img src="https://img.shields.io/badge/Donate-PayPal-ff3f59.svg"/></a>
-    <a href="https://opencollective.com/nest#sponsor"  target="_blank"><img src="https://img.shields.io/badge/Support%20us-Open%20Collective-41B883.svg" alt="Support us"></a>
-  <a href="https://twitter.com/nestframework" target="_blank"><img src="https://img.shields.io/twitter/follow/nestframework.svg?style=social&label=Follow"></a>
-</p>
-  <!--[![Backers on Open Collective](https://opencollective.com/nest/backers/badge.svg)](https://opencollective.com/nest#backer)
-  [![Sponsors on Open Collective](https://opencollective.com/nest/sponsors/badge.svg)](https://opencollective.com/nest#sponsor)-->
 
-## Description
+## Table of Contents
+- [Prerequisites](#prerequisites)
+- [Setup](#Setup)
+- [Running the app](#Running-the-app)
+- [Why MikroORM](#Why-MikroORM)
+- [Features(Under Construction)](#FeaturesUnder-Construction)
 
-[Nest](https://github.com/nestjs/nest) framework TypeScript starter repository.
+## Prerequisites
 
-## Installation
+NodeJS
+https://nodejs.org/en/
 
-```bash
-$ pnpm install
+MikroORM
+https://mikro-orm.io/
+
+PostgresQL
+https://www.postgresql.org/
+
+## Setup
+
+```
+1. pnpm install
+
+2. config your env file in `./env/**`. For remote database provider, you can simply using `clientUrl` conducted by your provider instead of 
+   a batch of `DB_HOST` and `DB_NAME` etc, see `./env/.env.sample` and relative file (./src/lib/config/configs/database.config.ts)
+   
+3. MikroORM using in Nestjs was recommanded config by `MikroOrmModule` instead of `mikro-orm-cli` (https://mikro-orm.io/docs/usage-with-nestjs#installation)
 ```
 
 ## Running the app
 
 ```bash
+# setup the desired environment in `package.json` to run the app
 # development
 $ pnpm run start
 
@@ -45,28 +51,28 @@ $ pnpm run start:dev
 $ pnpm run start:prod
 ```
 
-## Test
+## Why MikroORM
+The example codebase uses MikroORM with a Postgres database. Why Mikroorm? It is a modern ORM for Node.js based on Data Mapper, Unit of Work and Identity Map patterns. It is fully compatible with TypeScript and provides additional features like support for enums, custom types, MongoDB, transactions, caching, migrations, change tracking, advanced queries, lazy/eager relations and much more.
 
-```bash
-# unit tests
-$ pnpm run test
-
-# e2e tests
-$ pnpm run test:e2e
-
-# test coverage
-$ pnpm run test:cov
-```
-
-## Support
-
-Nest is an MIT-licensed open source project. It can grow thanks to the sponsors and support by the amazing backers. If you'd like to join them, please [read more here](https://docs.nestjs.com/support).
-
-## Stay in touch
-
-- Author - [Kamil Myśliwiec](https://kamilmysliwiec.com)
-- Website - [https://nestjs.com](https://nestjs.com/)
-- Twitter - [@nestframework](https://twitter.com/nestframework)
+## Features(Under Construction)
+- 🌐 [**I18n**](https://en.wikipedia.org/wiki/Internationalization_and_localization) - Internationalization
+- 🧵 [**Stats**](https://github.com/slanatech/swagger-stats/) - Swagger stats for common server metrics
+- 🧵 [**Poolifier**](https://github.com/poolifier/poolifier) - Threads for CPU extensive tasks
+- 💬 [**Twilio**](https://github.com/twilio/twilio-node) - SMS support
+- 📱 [**NestJS**](https://docs.nestjs.com) — Latest version
+- 🎉 [**TypeScript**](https://www.typescriptlang.org/) - Type checking
+- ⚙️ [**Dotenv**](https://github.com/motdotla/dotenv) - Supports environment variables
+- 🗝 [**Authentication**](https://jwt.io/), [RSA256](https://tools.ietf.org/html/rfc7518#section-6.3), [OAuth]([https://oauth.net/](https://docs.nestjs.com/security/authentication) - JWT, RSA256, OAuth
+- 🏬 [**Authorization**](https://github.com/stalniy/casl) - RBAC with casl
+- 🏪 [**MikroORM**](https://mikro-orm.io/) - Database ORM
+- 🏪 [**PostgreSQL**](https://www.postgresql.org/) - Open-Source Relational Database
+- 🧠 [**Configuration**](https://docs.nestjs.com/techniques/configuration) - Single config for all
+- 📃 [**Swagger**](https://swagger.io/) - API Documentation
+- 🐳 [**Docker Compose**](https://docs.docker.com/compose/) - Container Orchestration
+- 🔐 [**Helmet**](https://helmetjs.github.io/) - Secure HTTP headers
+- 📏 [**ESLint**](https://eslint.org/) — Pluggable JavaScript linter
+- ✅ [**Commitlint**](https://commitlint.js.org/) — Checks if your commit messages meet the conventional commit format.
+- 🐺 [**Husky**](https://github.com/typicode/husky) — Helps you create Git hooks easily.
 
 ## License
 
