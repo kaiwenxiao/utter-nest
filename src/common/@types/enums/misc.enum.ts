@@ -13,3 +13,8 @@ export enum PaginationType {
   OFFSET = 'OFFSET',
   CURSOR = 'CURSOR',
 }
+
+export enum PostStateEnum {
+  DRAFT = 'DRAFT',
+  PUBLISHED = 'PUBLISHED',
+}

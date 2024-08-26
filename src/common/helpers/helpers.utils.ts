@@ -15,4 +15,16 @@ export const HelperService = {
 
     return new Date(format(currentUtcTime, 'yyyy-MM-dd HH:mm:ss'));
   },
+
+  slugify(string_: string, options?: ISlugifyOptions): string {
+    const { separator = '-' } = options ?? {};
+
+    return string_
+      .toString()
+      .toLowerCase()
+      .normalize('NFD')
+      .replaceAll(/[\u0300-\u036F]/g, '')
+      .replaceAll(/[^\d a-z-]/g, '')
+      .replaceAll(/\s+/g, separator);
+  },
 };
