@@ -1,4 +1,7 @@
 import { format, fromZonedTime } from 'date-fns-tz';
+interface ISlugifyOptions {
+  separator?: string;
+}
 
 export const HelperService = {
   isDev() {
@@ -27,4 +30,13 @@ export const HelperService = {
       .replaceAll(/[^\d a-z-]/g, '')
       .replaceAll(/\s+/g, separator);
   },
+
+  normalizeEmail(email: string): string {
+    const DOT_REG = /\./g;
+    const [name, host] = email.split("@");
+    let [beforePlus] = name!.split("+");
+    beforePlus = beforePlus!.replaceAll(DOT_REG, "");
+    const result = `${beforePlus.toLowerCase()}@${host!.toLowerCase()}`;
+    return result;
+  }
 };
