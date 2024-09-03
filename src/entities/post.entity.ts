@@ -17,7 +17,6 @@ import {
 import { BaseEntity } from '@common/database/base.entity';
 import { Category } from './category.entity';
 import { PostStateEnum } from '@common/@types/enums/misc.enum';
-import { Conversation } from './conversation.entity';
 import { HelperService } from '@common/helpers/helpers.utils';
 
 @Entity()
