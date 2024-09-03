@@ -1,9 +1,12 @@
 import {
-  BaseEntity,
+  Collection,
   Entity,
+  ManyToMany,
   PrimaryKey,
   Property,
 } from '@mikro-orm/postgresql';
+import { Post } from './post.entity';
+import { BaseEntity } from '@common/database/base.entity';
 
 @Entity()
 export class Category extends BaseEntity {
@@ -12,6 +15,9 @@ export class Category extends BaseEntity {
 
   @Property()
   description!: string;
+
+  @ManyToMany(() => Post, (post) => post.categories)
+  posts = new Collection<Post>(this);
 
   constructor(partial?: Partial<Category>) {
     super();

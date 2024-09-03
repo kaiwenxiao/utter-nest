@@ -16,9 +16,11 @@ import {
 } from '@mikro-orm/postgresql';
 import { BaseEntity } from '@common/database/base.entity';
 import { Category } from './category.entity';
+import { Comment } from './comment.entity';
 import { PostStateEnum } from '@common/@types/enums/misc.enum';
-import { Conversation } from './conversation.entity';
 import { HelperService } from '@common/helpers/helpers.utils';
+import { Tag } from './tag.entity';
+import { User } from './user.entity';
 
 @Entity()
 export class Post extends BaseEntity {
@@ -51,7 +53,7 @@ export class Post extends BaseEntity {
   })
   author!: Rel<Ref<User>>;
 
-  @OneToMany(() => Comment, (comment) => comment.post, {
+  @OneToMany(() => Comment, 'post', {
     orphanRemoval: true,
   })
   comments = new Collection<Comment>(this);

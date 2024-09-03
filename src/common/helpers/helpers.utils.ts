@@ -1,4 +1,15 @@
 import { format, fromZonedTime } from 'date-fns-tz';
+import { argon2id, hash, Options as ArgonOptions } from 'argon2';
+
+interface ISlugifyOptions {
+  separator?: string;
+}
+
+const argon2Options: ArgonOptions & { raw?: false } = {
+  type: argon2id,
+  hashLength: 50,
+  timeCost: 4,
+};
 
 export const HelperService = {
   isDev() {
@@ -26,5 +37,9 @@ export const HelperService = {
       .replaceAll(/[\u0300-\u036F]/g, '')
       .replaceAll(/[^\d a-z-]/g, '')
       .replaceAll(/\s+/g, separator);
+  },
+
+  hashString(userPassword: string): Promise<string> {
+    return hash(userPassword, argon2Options);
   },
 };

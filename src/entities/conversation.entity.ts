@@ -1,12 +1,15 @@
 import { BaseEntity } from '@common/database/base.entity';
 import {
   Collection,
+  Entity,
   ManyToMany,
   OneToMany,
   Property,
 } from '@mikro-orm/postgresql';
 import { Message } from './message.entity';
+import { User } from './user.entity';
 
+@Entity()
 export class Conversation extends BaseEntity {
   @Property({ index: true })
   chatName!: string;

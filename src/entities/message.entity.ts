@@ -8,6 +8,7 @@ import {
 } from '@mikro-orm/postgresql';
 import { BaseEntity } from '@common/database/base.entity';
 import { Conversation } from './conversation.entity';
+import { User } from './user.entity';
 
 @Entity()
 export class Message extends BaseEntity {

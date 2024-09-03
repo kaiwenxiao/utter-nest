@@ -18,3 +18,8 @@ export enum PostStateEnum {
   DRAFT = 'DRAFT',
   PUBLISHED = 'PUBLISHED',
 }
+
+export enum ReferralStatus {
+  PENDING = 'PENDING',
+  COMPLETED = 'COMPLETED',
+}
