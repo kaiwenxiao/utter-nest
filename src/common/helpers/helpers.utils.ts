@@ -42,4 +42,13 @@ export const HelperService = {
   hashString(userPassword: string): Promise<string> {
     return hash(userPassword, argon2Options);
   },
+
+  normalizeEmail(email: string): string {
+    const DOT_REG = /\./g;
+    const [name, host] = email.split("@");
+    let [beforePlus] = name!.split("+");
+    beforePlus = beforePlus!.replaceAll(DOT_REG, "");
+    const result = `${beforePlus.toLowerCase()}@${host!.toLowerCase()}`;
+    return result;
+  }
 };

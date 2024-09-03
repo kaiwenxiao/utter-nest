@@ -2,6 +2,8 @@ import { Dictionary, QueryBuilder } from '@mikro-orm/postgresql';
 import { OffsetPaginationDto } from '@common/dtos/offset-pagination.dto';
 import { CursorPaginationDto } from '@common/dtos/cursor-pagination.dto';
 import { CursorType, QueryOrder } from '@common/@types/enums/misc.enum';
+import { CursorPaginationResponse } from '@common/@types/classes/cursor.response';
+import { OffsetPaginationResponse } from '@common/@types/classes/offset.response';
 
 export type Order = '$gt' | '$lt';
 export type OppositeOrder = `${Order}e`;
@@ -46,3 +48,6 @@ export interface PaginationAbstractResponse<T, Y> {
   data: T[];
   meta: Y;
 }
+
+export type PaginationRequest = CursorPaginationDto | OffsetPaginationDto;
+export type PaginationResponse<T> = CursorPaginationResponse<T> | OffsetPaginationResponse<T>
