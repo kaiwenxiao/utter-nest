@@ -9,6 +9,7 @@ import { CursorType, PaginationType, QueryOrder } from '@common/@types/enums/mis
 import { FilterQuery } from '@mikro-orm/postgresql';
 import { NotFoundException } from '@nestjs/common';
 import { itemDoesNotExistKey, translate } from '@lib/i18n/translate';
+import { User } from '../../entities/user.entity';
 
 // dto -> service -> controller, but your can abstract a layer before service
 
@@ -24,7 +25,7 @@ export abstract class BaseService<
   protected constructor(private readonly repository: BaseRepository<Entity>) {
   }
 
-  create(dto: CreateDto): Observable<Entity> {
+  create(dto: CreateDto, _user?: User): Observable<Entity> {
     const entity = this.repository.create(dto);
 
     return from(this.repository.getEntityManager().persistAndFlush(entity)).pipe(
@@ -88,6 +89,14 @@ export abstract class BaseService<
         this.repository.assign(item, dto as EntityData<FromEntityType<Entity>>);
 
         return from(this.repository.getEntityManager().flush()).pipe(map(() => item));
+      }),
+    );
+  }
+
+  remove(index: string): Observable<Entity> {
+    return this.findOne(index).pipe(
+      switchMap((item) => {
+        return this.repository.softRemoveAndFlush(item).pipe(map(() => item));
       }),
     );
   }

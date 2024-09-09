@@ -1,4 +1,5 @@
 import type { Config as ConfigInterface } from '@lib/config/config.interace';
+import type { Request } from 'express'
 
 // `export {}` indicate file as a module and export nothing, often used in TypeScript file only
 // contain type declarations or interfaces, without any code or exports
@@ -17,3 +18,4 @@ declare global {
 }
 
 export type Configs = ConfigInterface;
+export type NestifyRequest = Request;

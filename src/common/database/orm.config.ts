@@ -8,7 +8,7 @@ const logger = new Logger('MikroORM');
 
 export const baseOptions = {
   entities: ['dist/**/*.entity.js'],
-  entitiesTs: ['src/**/*.entity.js'],
+  entitiesTs: ['src/**/*.entity.ts'],
   findOneOrFailHandler: (entityName: string, key: any) => {
     return new NotFoundException(`${entityName} not found for ${key}`);
   },

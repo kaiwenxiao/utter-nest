@@ -5,13 +5,13 @@ import type {
 } from "./pagination.interface";
 import { CreateEntityType, UpdateEntityType } from '@common/@types/types/common.types';
 import { Observable } from 'rxjs';
-import { User } from '@modules/user/entities/user.entity';
+import { User } from '../../../entities/user.entity';
 
 export interface Crud<
   Entity extends BaseEntity,
   PaginationRequest extends TPaginationRequest,
   CreateDto extends CreateEntityType<Entity> = CreateEntityType<Entity>,
-  UpdateDto extends UpdateEntityType<Entity> = UpdateEntityType<Entity>
+  UpdateDto extends UpdateEntityType<Entity> = UpdateEntityType<Entity>,
 > {
   findAll(query: PaginationRequest): Observable<PaginationResponse<Entity>>
 
