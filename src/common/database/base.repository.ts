@@ -332,6 +332,7 @@ export class BaseRepository<T extends BaseEntity> extends EntityRepository<T> {
     });
   }
 
+  // TODO
   private paginateCursor<T>(
     dto: PaginateOptions<T>,
   ): CursorPaginationResponse<T> {

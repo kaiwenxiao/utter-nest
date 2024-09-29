@@ -45,10 +45,16 @@ export const HelperService = {
 
   normalizeEmail(email: string): string {
     const DOT_REG = /\./g;
-    const [name, host] = email.split("@");
-    let [beforePlus] = name!.split("+");
-    beforePlus = beforePlus!.replaceAll(DOT_REG, "");
+    const [name, host] = email.split('@');
+    let [beforePlus] = name!.split('+');
+    beforePlus = beforePlus!.replaceAll(DOT_REG, '');
     const result = `${beforePlus.toLowerCase()}@${host!.toLowerCase()}`;
     return result;
-  }
+  },
+
+  omit<T extends object, K extends keyof T>(object: T, keys: K[]): Omit<T, K> {
+    const omitted = { ...object };
+    for (const key of keys) delete omitted[key];
+    return omitted;
+  },
 };

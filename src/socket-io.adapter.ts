@@ -3,7 +3,6 @@ import type { Adapter } from 'socket.io-adapter';
 import type { Namespace, Server, ServerOptions } from 'socket.io';
 import { INestApplicationContext } from '@nestjs/common';
 import { ConfigService } from '@nestjs/config';
-import { Configs } from '@common/typings/globals';
 import { createClient } from 'redis';
 import { createAdapter } from '@socket.io/redis-adapter';
 
@@ -19,7 +18,7 @@ export class SocketIOAdapter extends IoAdapter {
 
   async connectToRedis() {
     const pubClient = createClient({
-      url: this.configService.get('redis.url', { infer: true }),
+      url: this.configService.get('redis.url'),
     });
     const subClient = pubClient.duplicate();
 
@@ -30,7 +29,7 @@ export class SocketIOAdapter extends IoAdapter {
 
   createIOServer(port: number, options?: ServerOptions) {
     const cors = {
-      origin: this.configService.get('app.allowedOrigins', { infer: true }),
+      origin: this.configService.get('app.allowedOrigins'),
     };
 
     const optionsWithCORS = {

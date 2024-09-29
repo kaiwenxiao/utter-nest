@@ -4,7 +4,6 @@ import {
   ValidationPipeOptions,
 } from '@nestjs/common';
 import { ConfigService } from '@nestjs/config';
-import { Configs } from '../typings/globals';
 import { DocumentBuilder, SwaggerModule } from '@nestjs/swagger';
 import {
   SWAGGER_API_CURRENT_VERSION,
@@ -64,9 +63,9 @@ export const AppUtils = {
     app: INestApplication,
     configService: ConfigService<Configs, true>,
   ) {
-    const userName = configService.get('app.swaggerUser', { infer: true });
-    const passWord = configService.get('app.swaggerPass', { infer: true });
-    const appName = configService.get('app.name', { infer: true });
+    const userName = configService.get('app.swaggerUser');
+    const passWord = configService.get('app.swaggerPass');
+    const appName = configService.get('app.name');
 
     const options = new DocumentBuilder()
       .setTitle(SWAGGER_TITLE)

@@ -1,33 +1,22 @@
-import { EmailFieldOptions } from '@common/@types';
-import { Transform } from 'class-transformer';
-import { HelperService } from '@common/helpers/helpers.utils';
-import { ArrayNotEmpty, IsArray, IsEmail, IsNotEmpty, IsOptional } from 'class-validator';
+import { UUIDFieldOptions } from '@common/@types';
 import { validationI18nMessage } from '@lib/i18n/translate';
+import { ArrayNotEmpty, IsArray, IsNotEmpty, IsOptional, IsUUID } from 'class-validator';
 import { applyDecorators } from '@nestjs/common';
 
-export function IsEmailField(options_?: EmailFieldOptions) {
-  const options: EmailFieldOptions = {
+export function IsUUIDField(options_?: UUIDFieldOptions) {
+  const options = {
     each: false,
     required: true,
     ...options_,
-  };
+  } satisfies UUIDFieldOptions;
+
   const decoratorsToApply = [
-    Transform(({ value }: { value: string }) => value.toLowerCase(), { toClassOnly: true }),
-    Transform(
-      ({ value }): string =>
-        typeof value === 'string' ? HelperService.normalizeEmail(value) : value,
-      // client -> server, not server -> client
-      { toClassOnly: true },
-    ),
-    IsEmail(
-      {},
-      {
-        message: validationI18nMessage('validation.isDataType', {
-          type: 'email address',
-        }),
-        each: options.each,
-      },
-    ),
+    IsUUID('4', {
+      message: validationI18nMessage('validation.isDataType', {
+        type: 'uuid',
+      }),
+      each: options.each,
+    }),
   ];
 
   if (options.required) {
@@ -61,3 +50,4 @@ export function IsEmailField(options_?: EmailFieldOptions) {
 
   return applyDecorators(...decoratorsToApply);
 }
+

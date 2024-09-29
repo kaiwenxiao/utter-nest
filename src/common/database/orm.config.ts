@@ -41,6 +41,7 @@ export const baseOptions = {
   forceUtcTimezone: true,
   registerRequestContext: true,
   pool: { min: 2, max: 10 },
+  // autoLoadEntities: true,
   driverOptions: {
     connection: { ssl: { rejectUnauthorized: false } },
   },

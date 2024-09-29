@@ -3,7 +3,6 @@ import { defineConfig } from '@mikro-orm/postgresql';
 import { Global, Module } from '@nestjs/common';
 import { ConfigModule, ConfigService } from '@nestjs/config';
 import { baseOptions } from '@common/database/orm.config';
-import { Configs } from '@common/typings/globals';
 
 @Global()
 @Module({
@@ -14,7 +13,7 @@ import { Configs } from '@common/typings/globals';
       useFactory: (configService: ConfigService<Configs, true>) =>
         defineConfig({
           ...baseOptions,
-          clientUrl: configService.get('database.clientUrl', { infer: true }),
+          clientUrl: configService.get('database.clientUrl'),
           // host: configService.get('database.host', { infer: true }),
           // port: configService.get('database.port', { infer: true }),
           // dbName: configService.get('database.dbName', { infer: true }),

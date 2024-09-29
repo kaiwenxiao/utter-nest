@@ -6,7 +6,6 @@ import {
 } from '@nestjs/platform-express';
 import { Logger, ValidationPipe } from '@nestjs/common';
 import { ConfigService } from '@nestjs/config';
-import { Configs } from '@common/typings/globals';
 import { HelperService } from '@common/helpers/helpers.utils';
 import { AppUtils } from '@common/helpers/app.utils';
 import helmet from 'helmet';
@@ -65,7 +64,7 @@ async function bootstrap() {
       credentials: true,
       methods: ['GET', 'HEAD', 'PUT', 'PATCH', 'POST', 'DELETE', 'OPTIONS'],
       maxAge: 3600,
-      origin: configService.get('app.allowedOrigins', { infer: true }),
+      origin: configService.get('app.allowedOrigins'),
     });
   }
 
@@ -100,7 +99,7 @@ async function bootstrap() {
   }
 
   const port =
-    process.env.PORT ?? configService.get('app.port', { infer: true })!;
+    process.env.PORT ?? configService.get('app.port')!;
 
   await app.listen(port);
 
